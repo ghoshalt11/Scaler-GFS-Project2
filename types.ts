@@ -16,6 +16,24 @@ export interface Recommendation {
   priority: 'High' | 'Medium' | 'Low';
 }
 
+export interface GuestSegment {
+  name: string;
+  percentage: number;
+  characteristics: string[];
+  personalizedOffers: {
+    title: string;
+    description: string;
+    deliveryChannel: string;
+  }[];
+}
+
+export interface RateAdjustment {
+  segment: string;
+  currentRate: number;
+  recommendedRate: number;
+  reason: string;
+}
+
 export interface GroundingSource {
   title: string;
   uri: string;
@@ -26,6 +44,8 @@ export interface MarketAnalysis {
   marketSentiment: string;
   competitorTrends: string;
   groundingSources: GroundingSource[];
+  segments: GuestSegment[];
+  rateAdjustments: RateAdjustment[];
 }
 
 export interface ProfitProjection {
