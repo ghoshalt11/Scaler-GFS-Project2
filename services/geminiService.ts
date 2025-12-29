@@ -6,7 +6,8 @@ export class GeminiService {
   private ai: GoogleGenAI;
 
   constructor() {
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+    // Correctly initialize the GoogleGenAI client using the environment variable directly as a named parameter.
+    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   }
 
   async generateActionPlan(context: HotelContext): Promise<MarketAnalysis> {
@@ -70,10 +71,12 @@ export class GeminiService {
                           title: { type: Type.STRING },
                           description: { type: Type.STRING },
                           deliveryChannel: { type: Type.STRING }
-                        }
+                        },
+                        required: ['title', 'description', 'deliveryChannel']
                       }
                     }
-                  }
+                  },
+                  required: ['name', 'percentage', 'characteristics', 'personalizedOffers']
                 }
               },
               rateAdjustments: {
@@ -85,7 +88,8 @@ export class GeminiService {
                     currentRate: { type: Type.NUMBER },
                     recommendedRate: { type: Type.NUMBER },
                     reason: { type: Type.STRING }
-                  }
+                  },
+                  required: ['segment', 'currentRate', 'recommendedRate', 'reason']
                 }
               }
             },
